@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="20dp"
+    android:paddingTop="5dp"
+    android:paddingRight="20dp"
+    android:paddingBottom="10dp">
+
+    <ImageView
+        android:id="@+id/item_post_iv_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_post"
+        android:minHeight="200dp"
+        android:scaleType="fitXY"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <TextView
+        android:id="@+id/item_post_tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/captura_black"
+        android:text="Title"
+        android:textColor="@color/textBlack"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_post_iv_photo" />
+
+
+    <com.borjabravo.readmoretextview.ReadMoreTextView
+        android:id="@+id/item_post_tv_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/captura_regular"
+        android:text="@string/lorem_ipsum"
+        android:textColor="@color/textDarkGrey"
+        android:textSize="12sp"
+        app:colorClickableText="@color/textBlack"
+        app:layout_constraintStart_toStartOf="@+id/item_post_tv_title"
+        app:layout_constraintTop_toBottomOf="@+id/item_post_tv_title"
+        app:showTrimExpandedText="true"
+        app:trimCollapsedText="Show less"
+        app:trimExpandedText="Show more"
+        app:trimLines="3"
+        app:trimMode="trimModeLine" />
+
+    <TextView
+        android:id="@+id/item_post_tv_author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/captura_regular"
+        android:maxLines="1"
+        android:text="Author"
+        android:textColor="@color/textDarkGrey"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/item_post_tv_content"
+        app:layout_constraintTop_toBottomOf="@+id/item_post_tv_content" />
+
+    <TextView
+        android:id="@+id/item_post_tv_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:fontFamily="@font/captura_regular"
+        android:maxLines="1"
+        android:text="~"
+        android:textColor="@color/textDarkGrey"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_post_tv_author"
+        app:layout_constraintStart_toEndOf="@+id/item_post_tv_author"
+        app:layout_constraintTop_toTopOf="@+id/item_post_tv_author" />
+
+    <TextView
+        android:id="@+id/item_post_tv_createdat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="3dp"
+        android:fontFamily="@font/captura_regular"
+        android:maxLines="1"
+        android:text="Date"
+        android:textColor="@color/textDarkGrey"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/item_post_tv_author"
+        app:layout_constraintStart_toEndOf="@+id/item_post_tv_1"
+        app:layout_constraintTop_toTopOf="@+id/item_post_tv_author" />
+
+
+    <com.like.LikeButton
+        android:id="@+id/item_post_lb_love"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:padding="2dp"
+        app:anim_scale_factor="2"
+        app:icon_size="20dp"
+        app:icon_type="heart"
+        app:layout_constraintStart_toStartOf="@+id/item_post_tv_author"
+        app:layout_constraintTop_toBottomOf="@+id/item_post_tv_author"
+        app:like_drawable="@drawable/im_love_on"
+        app:unlike_drawable="@drawable/im_love_off" />
+
+    <ImageView
+        android:id="@+id/item_post_img_comment"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/im_comment"
+        app:layout_constraintBottom_toBottomOf="@+id/item_post_lb_love"
+        app:layout_constraintStart_toEndOf="@+id/item_post_lb_love"
+        app:layout_constraintTop_toTopOf="@+id/item_post_lb_love" />
+
+    <TextView
+        android:id="@+id/item_post_tv_like_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/captura_regular"
+        android:maxLines="1"
+        android:text="1"
+        android:textColor="@color/textDarkGrey"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/item_post_lb_love"
+        app:layout_constraintTop_toBottomOf="@+id/item_post_lb_love" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:fontFamily="@font/captura_regular"
+        android:maxLines="1"
+        android:text="likes"
+        android:textColor="@color/textDarkGrey"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/item_post_tv_like_count"
+        app:layout_constraintStart_toEndOf="@+id/item_post_tv_like_count"
+        app:layout_constraintTop_toTopOf="@+id/item_post_tv_like_count" />
+
+    <TextView
+        android:id="@+id/item_post_view_1"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/textGrey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/item_post_tv_like_count" />
+</androidx.constraintlayout.widget.ConstraintLayout>

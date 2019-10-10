@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp">
+
+    <Button
+        android:id="@+id/item_tag_name"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:background="@drawable/shape_tag"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:text="Category Name"
+        android:textSize="12sp" />
+</LinearLayout>
