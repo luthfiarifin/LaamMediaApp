@@ -181,7 +181,8 @@ class AddPostActivity : AppCompatActivity() {
                     MY_EXTERNAL_REQUEST_CODE
                 )
             } else {
-                val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss").format(Date()).toString()
+                val timeStamp =
+                    "post_" + SimpleDateFormat("yyyyMMdd_HHmmss").format(Date()).toString()
                 val cv = ContentValues()
                 cv.put(MediaStore.Images.Media.TITLE, timeStamp)
                 cv.put(MediaStore.Images.Media.DESCRIPTION, resources.getString(R.string.app_name))

@@ -11,7 +11,7 @@
         android:orientation="vertical">
 
         <include
-            layout="@layout/toolbar_activity"
+            layout="@layout/toolbar_activity_post"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="-20dp" />

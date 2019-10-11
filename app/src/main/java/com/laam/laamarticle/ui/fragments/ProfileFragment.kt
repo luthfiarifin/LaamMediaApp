@@ -1,5 +1,6 @@
 package com.laam.laamarticle.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,8 +18,11 @@ import com.laam.laamarticle.services.api.PostService
 import com.laam.laamarticle.services.api.ServiceBuilder
 import com.laam.laamarticle.services.SharedPrefHelper
 import com.laam.laamarticle.services.api.UserService
+import com.laam.laamarticle.ui.activities.LoginActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.toolbar_activity.*
+import kotlinx.android.synthetic.main.toolbar_activity.toolbar_activity_back
+import kotlinx.android.synthetic.main.toolbar_activity.toolbar_activity_title
+import kotlinx.android.synthetic.main.toolbar_activity_post.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -39,52 +43,29 @@ class ProfileFragment : Fragment() {
 
         profile_recyclerview.setHasFixedSize(true)
         recyclerViewData()
-        setData()
+        setText()
 
         toolbar_activity_title.text = "Profile"
+        toolbar_activity_share.text = "Logout"
         toolbar_activity_back.visibility = View.GONE
+        toolbar_activity_share.setOnClickListener {
+            onLogOutPressed()
+        }
 
         profile_swipe_refresh.setOnRefreshListener {
             recyclerViewData()
         }
     }
 
-    private fun setData() {
-        val pref = SharedPrefHelper(activity!!.applicationContext)
-        ServiceBuilder.buildService(UserService::class.java).getUserByID(0, pref.getAccount().id)
-            .enqueue(object : Callback<User> {
-                override fun onResponse(call: Call<User>, response: Response<User>) {
-                    if (response.isSuccessful) {
-                        val user_ref = response.body()!!
-
-                        pref.saveUser(User(
-                            user_ref.id,
-                            user_ref.email,
-                            user_ref.password,
-                            user_ref.name,
-                            user_ref.jobCategory,
-                            user_ref.bio,
-                            user_ref.imageUrl,
-                            user_ref.postCount,
-                            user_ref.followerCount,
-                            user_ref.followingCount,
-                            user_ref.following
-                        ))
-                    } else {
-                        Toast.makeText(activity!!.applicationContext, "Error", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                    setText()
-                }
-
-                override fun onFailure(call: Call<User>, t: Throwable) {
-                    Toast.makeText(
-                        activity!!.applicationContext, "Error : ${t.message}", Toast.LENGTH_SHORT
-                    )
-                        .show()
-                    setText()
-                }
-            })
+    private fun onLogOutPressed() {
+        val pref = SharedPrefHelper(activity!!)
+        pref.clearUser()
+        startActivity(
+            Intent(
+                activity!!,
+                LoginActivity::class.java
+            ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        )
     }
 
     private fun setText() {

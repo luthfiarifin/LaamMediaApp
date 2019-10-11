@@ -57,18 +57,6 @@ class HomeFragment : Fragment() {
         home_swipe_refresh.isRefreshing = true
 
         val pref = SharedPrefHelper(activity!!.applicationContext)
-        pref.saveUser(
-            User(
-                4, "asd", "asd", "asd", "", "", "","", "", "", 0
-            )
-        )
-
-        if (!pref.isLoggedIn()) {
-            home_layout_not_login.visibility = View.VISIBLE
-            return
-        } else {
-            home_layout_not_login.visibility = View.GONE
-        }
 
         val service: Call<List<Post>> =
             ServiceBuilder.buildService(PostService::class.java).getPostHome(pref.getAccount().id)

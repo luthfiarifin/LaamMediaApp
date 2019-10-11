@@ -18,31 +18,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-
-        <activity android:name=".ui.activities.NewMessageActivity"/>
-        <activity android:name=".ui.activities.AddPostActivity" />
-        <activity android:name=".ui.activities.PostActivity" />
-        <activity android:name=".ui.activities.ProfileActivity" />
-        <activity android:name=".ui.activities.DirrectMessageActivity" />
-        <activity android:name=".ui.activities.HeaderMessageActivity" />
-        <activity android:name=".ui.activities.MainActivity">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <provider
-            android:name="androidx.core.content.FileProvider"
-            android:authorities="com.laam.laamarticle.fileProvider"
-            android:exported="false"
-            android:grantUriPermissions="true" >
-
-            <meta-data
-                android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths" />
-        </provider>
+        <activity android:name=".ui.activities.RegisterActivity" />
+        <activity android:name=".ui.activities.MainActivity" />
+        <activity android:name=".ui.activities.NewMessageActivity" />
+        <activity android:name=".ui.activities.AddPostActivity" />
+        <activity android:name=".ui.activities.PostActivity" />
+        <activity android:name=".ui.activities.ProfileActivity" />
+        <activity android:name=".ui.activities.DirrectMessageActivity" />
+        <activity android:name=".ui.activities.HeaderMessageActivity" />
+        <activity android:name=".ui.activities.LoginActivity" />
     </application>
 
 </manifest>
