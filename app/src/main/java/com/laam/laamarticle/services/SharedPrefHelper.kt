@@ -11,6 +11,7 @@ class SharedPrefHelper(val context: Context) {
     private val PASS_KEY = "pass_key"
     private val NAME_KEY = "name_key"
     private val JOB_KEY = "job_key"
+    private val ID_JOB_KEY = "id_job_key"
     private val BIO_KEY = "bio_key"
     private val IMAGE_KEY = "image_key"
     private val C_POST_KEY = "c_post_key"
@@ -28,6 +29,7 @@ class SharedPrefHelper(val context: Context) {
         editor.putString(PASS_KEY, user.password)
         editor.putString(NAME_KEY, user.name)
         editor.putString(JOB_KEY, user.jobCategory)
+        editor.putInt(ID_JOB_KEY, user.jobId)
         editor.putString(BIO_KEY, user.bio)
         editor.putString(IMAGE_KEY, user.imageUrl)
         editor.putString(C_POST_KEY, user.postCount)
@@ -48,6 +50,7 @@ class SharedPrefHelper(val context: Context) {
             sharedPref.getString(PASS_KEY, null)!!,
             sharedPref.getString(NAME_KEY, null)!!,
             sharedPref.getString(JOB_KEY, null)!!,
+            sharedPref.getInt(ID_JOB_KEY, 0),
             sharedPref.getString(BIO_KEY, null)!!,
             sharedPref.getString(IMAGE_KEY, null)!!,
             sharedPref.getString(C_POST_KEY, null)!!,
@@ -57,7 +60,7 @@ class SharedPrefHelper(val context: Context) {
         )
     }
 
-    fun clearUser(){
+    fun clearUser() {
         val editor: SharedPreferences.Editor = sharedPref.edit()
         editor.clear()
         editor.apply()

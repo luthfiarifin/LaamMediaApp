@@ -31,7 +31,6 @@ class HeaderMessageRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = mValues[position]
-        val pref = SharedPrefHelper(mContext).getAccount()
 
         holder.tvName.text = item.destinationName
         holder.tvContent.text = item.content

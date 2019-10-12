@@ -18,7 +18,9 @@ import com.laam.laamarticle.services.api.PostService
 import com.laam.laamarticle.services.api.ServiceBuilder
 import com.laam.laamarticle.services.SharedPrefHelper
 import com.laam.laamarticle.services.api.UserService
+import com.laam.laamarticle.ui.activities.AddPostActivity
 import com.laam.laamarticle.ui.activities.LoginActivity
+import com.laam.laamarticle.ui.activities.RegisterActivity
 import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.toolbar_activity.toolbar_activity_back
 import kotlinx.android.synthetic.main.toolbar_activity.toolbar_activity_title
@@ -55,6 +57,27 @@ class ProfileFragment : Fragment() {
         profile_swipe_refresh.setOnRefreshListener {
             recyclerViewData()
         }
+
+        profile_btn_add.setOnClickListener {
+            onPostAddPressed()
+        }
+
+        profile_btn_edit_profile.setOnClickListener {
+            onEditProfilePressed()
+        }
+    }
+
+    private fun onEditProfilePressed() {
+        activity!!.startActivity(
+            Intent(activity!!, RegisterActivity::class.java).putExtra(
+                "isEdit",
+                true
+            )
+        )
+    }
+
+    private fun onPostAddPressed() {
+        activity!!.startActivity(Intent(activity!!, AddPostActivity::class.java))
     }
 
     private fun onLogOutPressed() {

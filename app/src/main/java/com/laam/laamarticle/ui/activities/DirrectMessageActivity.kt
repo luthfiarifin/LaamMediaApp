@@ -55,7 +55,10 @@ class DirrectMessageActivity : AppCompatActivity() {
                 dm_recyclerview_message.layoutManager =
                     LinearLayoutManager(this@DirrectMessageActivity)
                 mAdapter = MessageRecyclerViewAdapter(
-                    GsonBuilder().create().fromJson(it[0].toString(), Array<DirrectMessage>::class.java)
+                    GsonBuilder().create().fromJson(
+                        it[0].toString(),
+                        Array<DirrectMessage>::class.java
+                    )
                         .toMutableList(),
                     this@DirrectMessageActivity
                 )
@@ -66,19 +69,25 @@ class DirrectMessageActivity : AppCompatActivity() {
         })
 
         dm_btn_send.setOnClickListener {
-            val obj: JSONObject = JSONObject()
-            obj.put("user_id", pref_id)
-            obj.put("destination_id", destination_id)
-            obj.put("content", dm_et_send.text)
+            if (!dm_et_send.text.toString().trim().equals("")) {
+                val obj: JSONObject = JSONObject()
+                obj.put("user_id", pref_id)
+                obj.put("destination_id", destination_id)
+                obj.put("content", dm_et_send.text)
 
-            mSocket.emit("newMessage", obj)
-            dm_et_send.setText("")
+                mSocket.emit("newMessage", obj)
+                dm_et_send.setText("")
+            }
         }
 
         mSocket.on("newMessage", Emitter.Listener {
             runOnUiThread(Runnable {
-                Toast.makeText(this, "Masuk", Toast.LENGTH_SHORT).show()
-                mAdapter!!.updateData(GsonBuilder().create().fromJson(it[0].toString(), DirrectMessage::class.java))
+                mAdapter!!.updateData(
+                    GsonBuilder().create().fromJson(
+                        it[0].toString(),
+                        DirrectMessage::class.java
+                    )
+                )
                 dm_recyclerview_message.smoothScrollToPosition(mAdapter!!.itemCount - 1)
                 dm_recyclerview_message.scrollTo(0, mAdapter!!.itemCount - 1)
             })

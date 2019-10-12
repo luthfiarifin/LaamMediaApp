@@ -30,18 +30,20 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
+import com.laam.laamarticle.models.response.ResponseDB
+import com.laam.laamarticle.services.SharedPrefHelper
 import java.io.ByteArrayOutputStream
 import java.text.SimpleDateFormat
 import java.util.*
 
 
 class RegisterActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
-
-
     private lateinit var listCategory: List<Category>
+
     private var categoryId: Int = 0
     private lateinit var imageUri: Uri
-    private var encodedImage: String = ""
+    private var encodedImage: String? = null
+    private var isEdit = false
 
     private val IMAGE_CAPTURE_KEY = 0
     private val IMAGE_GALLERY_KEY = 1
@@ -53,13 +55,36 @@ class RegisterActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
 
-        toolbar_activity_title.text = "Register User"
+        isEdit = intent.getBooleanExtra("isEdit", false)
+
+        toolbar_activity_title.text = if (!isEdit) {
+            "Register User"
+        } else {
+            "Edit Profile"
+        }
         toolbar_activity_share.text = "Done"
         toolbar_activity_back.setOnClickListener {
             onBackPressed()
         }
         toolbar_activity_share.setOnClickListener {
-            onDonePressed()
+            if (register_et_email.text.toString().trim() == "") {
+                register_et_email.error = "Email required"
+            } else if (register_et_password.text.toString().trim() == "") {
+                register_et_password.error = "Password required"
+            } else if (register_et_name.text.toString().trim() == "") {
+                register_et_name.error = "Namr required"
+            } else if (register_et_bio.text.toString().trim() == "") {
+                register_et_bio.error = "Bio required"
+            } else if (categoryId == 0) {
+                Toast.makeText(this@RegisterActivity, "Job category required", Toast.LENGTH_SHORT)
+                    .show()
+            } else {
+                if (!isEdit) {
+                    onDoneRegisterPressed()
+                } else {
+
+                }
+            }
         }
 
         showSpItem()
@@ -67,6 +92,22 @@ class RegisterActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         register_img_add.setOnClickListener {
             onAddPhotoPressed()
         }
+
+        if (isEdit) {
+            initProfile()
+        }
+    }
+
+    private fun initProfile() {
+        val pref = SharedPrefHelper(this@RegisterActivity).getAccount()
+        register_et_email.setText(pref.email)
+        register_et_name.setText(pref.name)
+        register_et_password.setText(pref.password)
+        register_et_bio.setText(pref.bio)
+        Glide.with(this@RegisterActivity)
+            .load(ServiceBuilder.BASE_URL + pref.imageUrl)
+            .circleCrop()
+            .into(register_img_profile)
     }
 
     private fun onAddPhotoPressed() {
@@ -78,12 +119,18 @@ class RegisterActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         builder.setItems(options, DialogInterface.OnClickListener { dialog, item ->
             if (options[item] == "Take Photo") {
                 if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
-                    == PackageManager.PERMISSION_DENIED && ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    == PackageManager.PERMISSION_DENIED && ContextCompat.checkSelfPermission(
+                        this,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    )
                     == PackageManager.PERMISSION_DENIED
                 ) {
                     ActivityCompat.requestPermissions(
                         this,
-                        arrayOf(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                        arrayOf(
+                            Manifest.permission.CAMERA,
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE
+                        ),
                         MY_CAMERA_REQUEST_CODE
                     )
                 } else if (ContextCompat.checkSelfPermission(
@@ -228,6 +275,15 @@ class RegisterActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
                         servicesName
                     )
                     register_sp_job.adapter = adapter
+
+                    if (isEdit) {
+                        val pref = SharedPrefHelper(this@RegisterActivity).getAccount()
+                        for (i in listCategory.indices) {
+                            if (listCategory[i].name == pref.jobCategory) {
+                                register_sp_job.setSelection(i)
+                            }
+                        }
+                    }
                 }
 
                 override fun onFailure(call: Call<List<Category>>, t: Throwable) {
@@ -246,7 +302,32 @@ class RegisterActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
         categoryId = listCategory[p2].id
     }
 
-    private fun onDonePressed() {
+    private fun onDoneRegisterPressed() {
+        if (encodedImage == null) {
+            Toast.makeText(this@RegisterActivity, "Picture required", Toast.LENGTH_SHORT).show()
+            return
+        }
 
+        ServiceBuilder.buildService(UserService::class.java).postRegister(
+            register_et_email.text.toString(),
+            register_et_password.text.toString(),
+            categoryId,
+            register_et_name.text.toString(),
+            register_et_bio.text.toString(),
+            encodedImage!!
+        ).enqueue(object : Callback<ResponseDB> {
+            override fun onResponse(call: Call<ResponseDB>, response: Response<ResponseDB>) {
+                Toast.makeText(this@RegisterActivity, response.body()!!.message, Toast.LENGTH_SHORT)
+                    .show()
+                if (response.body()!!.success) {
+                    onBackPressed()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseDB>, t: Throwable) {
+                Log.e("onFailure", t.message)
+                Toast.makeText(this@RegisterActivity, t.message, Toast.LENGTH_SHORT).show()
+            }
+        })
     }
 }

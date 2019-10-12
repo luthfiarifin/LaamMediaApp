@@ -1,4 +1,4 @@
-package com.laam.laamarticle
+package com.laam.laamarticle.ui.activities
 
 import android.content.Intent
 import android.os.AsyncTask
@@ -7,14 +7,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.util.Log
 import android.widget.Toast
+import com.laam.laamarticle.R
 import com.laam.laamarticle.models.User
-import com.laam.laamarticle.models.response.ResponseLogin
 import com.laam.laamarticle.services.SharedPrefHelper
 import com.laam.laamarticle.services.api.ServiceBuilder
 import com.laam.laamarticle.services.api.UserService
-import com.laam.laamarticle.ui.activities.LoginActivity
-import com.laam.laamarticle.ui.activities.MainActivity
-import kotlinx.android.synthetic.main.activity_login.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -29,11 +26,7 @@ class SplashActivity : AppCompatActivity() {
 
         Handler().postDelayed({
             DoAsync(
-                {
-                    if (pref.isLoggedIn()) {
-                        saveUser()
-                    }
-                },
+                { if (pref.isLoggedIn()) { saveUser() } },
                 {
                     if (pref.isLoggedIn()) {
                         isLogin()
@@ -42,7 +35,7 @@ class SplashActivity : AppCompatActivity() {
                     }
                 }
             ).execute()
-        }, 1000)
+        }, 2000)
     }
 
     private fun isLogin() {

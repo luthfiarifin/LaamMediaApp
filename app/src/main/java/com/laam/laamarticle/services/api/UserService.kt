@@ -37,4 +37,26 @@ interface UserService {
         @Field("email") email: String,
         @Field("pass") password: String
     ): Call<ResponseLogin>
+
+    @FormUrlEncoded
+    @POST("user/register")
+    fun postRegister(
+        @Field("email") email: String,
+        @Field("password") password: String,
+        @Field("job_id") job_id: Int,
+        @Field("name") name: String,
+        @Field("bio") bio: String,
+        @Field("image_url") image_url: String
+    ): Call<ResponseDB>
+
+    @PUT("user/register")
+    fun putProfile(
+        @Field("id") id: Int,
+        @Field("email") email: String,
+        @Field("password") password: String,
+        @Field("job_id") job_id: Int,
+        @Field("name") name: String,
+        @Field("bio") bio: String,
+        @Field("image_url") image_url: String? = null
+    ): Call<ResponseDB>
 }

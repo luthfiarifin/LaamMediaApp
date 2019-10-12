@@ -12,6 +12,8 @@ data class User(
     val name: String,
     @SerializedName("job_category")
     val jobCategory: String,
+    @SerializedName("job_id")
+    val jobId: Int,
     val bio: String,
     @SerializedName("image_url")
     val imageUrl: String,

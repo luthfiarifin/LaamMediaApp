@@ -48,6 +48,7 @@ class LoginActivity : AppCompatActivity() {
                             pref.saveUser(
                                 response.body()!!.user!!
                             )
+                            Log.d("laam", "id : ${response.body()!!.user!!.id}" )
                             startActivity(
                                 Intent(
                                     this@LoginActivity,
