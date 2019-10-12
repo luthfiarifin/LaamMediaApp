@@ -49,7 +49,8 @@ interface UserService {
         @Field("image_url") image_url: String
     ): Call<ResponseDB>
 
-    @PUT("user/register")
+    @FormUrlEncoded
+    @PUT("user/edit")
     fun putProfile(
         @Field("id") id: Int,
         @Field("email") email: String,

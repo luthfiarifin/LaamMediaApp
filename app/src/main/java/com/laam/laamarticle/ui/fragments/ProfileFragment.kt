@@ -2,6 +2,7 @@ package com.laam.laamarticle.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -45,7 +46,8 @@ class ProfileFragment : Fragment() {
 
         profile_recyclerview.setHasFixedSize(true)
         recyclerViewData()
-        setText()
+
+        initUser()
 
         toolbar_activity_title.text = "Profile"
         toolbar_activity_share.text = "Logout"
@@ -55,6 +57,7 @@ class ProfileFragment : Fragment() {
         }
 
         profile_swipe_refresh.setOnRefreshListener {
+            initUser()
             recyclerViewData()
         }
 
@@ -65,6 +68,13 @@ class ProfileFragment : Fragment() {
         profile_btn_edit_profile.setOnClickListener {
             onEditProfilePressed()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        initUser()
+        recyclerViewData()
     }
 
     private fun onEditProfilePressed() {
@@ -89,6 +99,33 @@ class ProfileFragment : Fragment() {
                 LoginActivity::class.java
             ).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         )
+    }
+
+    private fun initUser() {
+        val pref = SharedPrefHelper(activity!!)
+        ServiceBuilder.buildService(UserService::class.java)
+            .getUserByID(0, pref.getAccount().id).enqueue(
+                object : Callback<User> {
+                    override fun onResponse(
+                        call: Call<User>,
+                        response: Response<User>
+                    ) {
+                        pref.saveUser(
+                            response.body()!!
+                        )
+                        setText()
+                    }
+
+                    override fun onFailure(call: Call<User>, t: Throwable) {
+                        Toast.makeText(
+                            activity!!,
+                            "Error : ${t.message}",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                        Log.e("onFailure", t.message)
+                    }
+                })
     }
 
     private fun setText() {
@@ -122,7 +159,6 @@ class ProfileFragment : Fragment() {
                 if (response.isSuccessful) {
                     if (response.body()!!.isEmpty()) {
                         profile_layout_not_post.visibility = View.VISIBLE
-                        Toast.makeText(activity, "Tes", Toast.LENGTH_SHORT).show()
                     } else {
                         profile_layout_not_post.visibility = View.GONE
 

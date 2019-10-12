@@ -82,7 +82,7 @@ class RegisterActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
                 if (!isEdit) {
                     onDoneRegisterPressed()
                 } else {
-
+                    onDoneEditPressed()
                 }
             }
         }
@@ -279,7 +279,7 @@ class RegisterActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
                     if (isEdit) {
                         val pref = SharedPrefHelper(this@RegisterActivity).getAccount()
                         for (i in listCategory.indices) {
-                            if (listCategory[i].name == pref.jobCategory) {
+                            if (listCategory[i].id == pref.jobId) {
                                 register_sp_job.setSelection(i)
                             }
                         }
@@ -321,6 +321,32 @@ class RegisterActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener
                     .show()
                 if (response.body()!!.success) {
                     onBackPressed()
+                }
+            }
+
+            override fun onFailure(call: Call<ResponseDB>, t: Throwable) {
+                Log.e("onFailure", t.message)
+                Toast.makeText(this@RegisterActivity, t.message, Toast.LENGTH_SHORT).show()
+            }
+        })
+    }
+
+    private fun onDoneEditPressed() {
+        val pref = SharedPrefHelper(this@RegisterActivity).getAccount()
+        ServiceBuilder.buildService(UserService::class.java).putProfile(
+            pref.id,
+            register_et_email.text.toString(),
+            register_et_password.text.toString(),
+            categoryId,
+            register_et_name.text.toString(),
+            register_et_bio.text.toString(),
+            encodedImage
+        ).enqueue(object : Callback<ResponseDB> {
+            override fun onResponse(call: Call<ResponseDB>, response: Response<ResponseDB>) {
+                Toast.makeText(this@RegisterActivity, response.body()!!.message, Toast.LENGTH_SHORT)
+                    .show()
+                if (response.body()!!.success) {
+                    finish()
                 }
             }
 
