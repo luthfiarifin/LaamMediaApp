@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.laam.laamarticle.R
 import com.laam.laamarticle.adapters.CommentRecyclerViewAdapter
@@ -43,6 +44,10 @@ class HeaderMessageActivity : AppCompatActivity() {
         header_message_floating_add.setOnClickListener {
             startActivity(Intent(this@HeaderMessageActivity, NewMessageActivity::class.java))
         }
+
+        header_message_btn_new_message.setOnClickListener {
+            startActivity(Intent(this@HeaderMessageActivity, NewMessageActivity::class.java))
+        }
     }
 
 
@@ -56,6 +61,12 @@ class HeaderMessageActivity : AppCompatActivity() {
                 call: Call<List<HeaderMessage>>,
                 response: Response<List<HeaderMessage>>
             ) {
+                if(response.body()!!.isEmpty()){
+                    header_message_layout_not_found.visibility = View.VISIBLE
+                }else{
+                    header_message_layout_not_found.visibility = View.GONE
+                }
+
                 header_message_recyclerview.setHasFixedSize(true)
                 header_message_recyclerview.layoutManager =
                     LinearLayoutManager(this@HeaderMessageActivity)

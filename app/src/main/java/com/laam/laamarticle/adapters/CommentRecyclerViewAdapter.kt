@@ -58,7 +58,7 @@ class CommentRecyclerViewAdapter(
 
     fun updateData(data: Comment) {
         mValues.add(data)
-        if (mValues.size <= 1) {
+        if (mValues.size <= 3) {
             notifyDataSetChanged()
         }
         notifyItemInserted(mValues.size - 1)

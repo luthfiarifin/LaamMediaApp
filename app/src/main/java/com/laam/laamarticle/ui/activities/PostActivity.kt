@@ -26,7 +26,7 @@ import retrofit2.Response
 
 class PostActivity : AppCompatActivity() {
     private var mSocket: Socket = IO.socket("http://10.0.2.2:3003/")
-    private var mAdapter: CommentRecyclerViewAdapter? = null
+    private lateinit var mAdapter: CommentRecyclerViewAdapter
 
     private var post_id: Int = 0
     private var pref_id: Int = 0
@@ -70,7 +70,7 @@ class PostActivity : AppCompatActivity() {
                     this@PostActivity
                 )
                 home_ori_recyclerview_comment.adapter = mAdapter
-                home_ori_tv_comment.text = "${mAdapter!!.itemCount} comment"
+                home_ori_tv_comment.text = "${mAdapter.itemCount} comment"
             })
         })
 
@@ -86,10 +86,10 @@ class PostActivity : AppCompatActivity() {
 
         mSocket.on("newComment", Emitter.Listener {
             runOnUiThread(Runnable {
-                mAdapter!!.updateData(GsonBuilder().create().fromJson(it[0].toString(), Comment::class.java))
-                home_ori_tv_comment.text = "${mAdapter!!.itemCount} comment"
-                home_ori_recyclerview_comment.smoothScrollToPosition(mAdapter!!.itemCount - 1)
-                home_ori_recyclerview_comment.scrollTo(0, mAdapter!!.itemCount - 1)
+                mAdapter.updateData(GsonBuilder().create().fromJson(it[0].toString(), Comment::class.java))
+                home_ori_tv_comment.text = "${mAdapter.itemCount} comment"
+                home_ori_recyclerview_comment.smoothScrollToPosition(mAdapter.itemCount - 1)
+                home_ori_recyclerview_comment.scrollTo(0, mAdapter.itemCount - 1)
             })
         })
     }

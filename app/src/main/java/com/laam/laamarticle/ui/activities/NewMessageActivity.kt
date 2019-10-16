@@ -1,10 +1,12 @@
 package com.laam.laamarticle.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.laam.laamarticle.R
@@ -14,6 +16,7 @@ import com.laam.laamarticle.services.api.PostService
 import com.laam.laamarticle.services.api.ServiceBuilder
 import com.laam.laamarticle.services.SharedPrefHelper
 import kotlinx.android.synthetic.main.activity_new_message.*
+import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.toolbar_activity.*
 import retrofit2.Call
 import retrofit2.Callback
@@ -40,7 +43,7 @@ class NewMessageActivity : AppCompatActivity() {
             showData()
         }
 
-        new_message_search.addTextChangedListener(object : TextWatcher{
+        new_message_search.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 search = p0.toString()
                 showData()
@@ -52,6 +55,10 @@ class NewMessageActivity : AppCompatActivity() {
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
             }
         })
+
+        new_message_btn_following.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK))
+        }
     }
 
 
@@ -65,9 +72,16 @@ class NewMessageActivity : AppCompatActivity() {
                 call: Call<List<HeaderMessage>>,
                 response: Response<List<HeaderMessage>>
             ) {
+                if (response.body()!!.isEmpty()) {
+                    new_message_layout_not_found.visibility = View.VISIBLE
+                } else {
+                    new_message_layout_not_found.visibility = View.GONE
+                }
                 new_message_recyclerview.setHasFixedSize(true)
-                new_message_recyclerview.layoutManager = LinearLayoutManager(this@NewMessageActivity)
-                new_message_recyclerview.adapter = HeaderMessageRecyclerViewAdapter(response.body()!!, this@NewMessageActivity)
+                new_message_recyclerview.layoutManager =
+                    LinearLayoutManager(this@NewMessageActivity)
+                new_message_recyclerview.adapter =
+                    HeaderMessageRecyclerViewAdapter(response.body()!!, this@NewMessageActivity)
                 new_message_swipe_refresh.isRefreshing = false
             }
 

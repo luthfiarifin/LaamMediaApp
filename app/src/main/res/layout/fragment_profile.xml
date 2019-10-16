@@ -213,8 +213,9 @@
                         android:layout_height="match_parent">
 
                         <ImageView
+                            android:id="@+id/iv"
                             android:layout_width="match_parent"
-                            android:layout_height="400dp"
+                            android:layout_height="330dp"
                             android:padding="20dp"
                             android:scaleType="centerInside"
                             android:src="@drawable/ic_undraw_empty"
@@ -223,36 +224,25 @@
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
-                        <TextView
-                            android:id="@+id/textView1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/captura_black"
-                            android:text="You have not\nupload your photo"
-                            android:textAlignment="center"
-                            android:textSize="18sp"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.831"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.096" />
-
                         <Button
                             android:id="@+id/profile_btn_add"
                             android:layout_width="150dp"
                             android:layout_height="40dp"
                             android:layout_marginTop="10dp"
-                            android:background="@drawable/shape_button_profile"
+                            android:background="@drawable/shape_button_follow"
                             android:fontFamily="@font/captura_regular"
                             android:padding="5dp"
                             android:text="Add Photo"
                             android:textAllCaps="false"
-                            android:textColor="#000"
+                            android:textColor="@color/colorWhite"
                             android:textSize="15sp"
-                            app:layout_constraintEnd_toEndOf="@+id/textView1"
-                            app:layout_constraintStart_toStartOf="@+id/textView1"
-                            app:layout_constraintTop_toBottomOf="@+id/textView1" />
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/iv"
+                            app:layout_constraintHorizontal_bias="0.762"
+                            app:layout_constraintStart_toStartOf="@+id/iv"
+                            app:layout_constraintTop_toTopOf="@+id/iv"
+                            app:layout_constraintVertical_bias="0.696" />
+
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </LinearLayout>
 

@@ -20,7 +20,7 @@ import com.laam.laamarticle.services.SharedPrefHelper
 import com.laam.laamarticle.services.api.UserService
 import kotlinx.android.synthetic.main.activity_profile.*
 import kotlinx.android.synthetic.main.fragment_profile.*
-import kotlinx.android.synthetic.main.toolbar_activity.*
+import kotlinx.android.synthetic.main.toolbar_activity_post.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -49,10 +49,12 @@ class ProfileActivity : AppCompatActivity() {
             View.GONE
         }
 
+        toolbar_activity_share.visibility = View.INVISIBLE
         toolbar_activity_title.text = "Profile"
         toolbar_activity_back.setOnClickListener {
             onBackPressed()
         }
+
 
 
         showData()
@@ -86,12 +88,6 @@ class ProfileActivity : AppCompatActivity() {
                             response: Response<ResponseDB>
                         ) {
                             if (response.isSuccessful) {
-                                Toast.makeText(
-                                    this@ProfileActivity,
-                                    "${response.body()!!.message}",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
                                 showData()
                                 isFollowing = true
                             } else {
@@ -118,12 +114,6 @@ class ProfileActivity : AppCompatActivity() {
                             response: Response<ResponseDB>
                         ) {
                             if (response.isSuccessful) {
-                                Toast.makeText(
-                                    this@ProfileActivity,
-                                    "${response.body()!!.message}",
-                                    Toast.LENGTH_SHORT
-                                )
-                                    .show()
                                 showData()
                                 isFollowing = false
                             } else {

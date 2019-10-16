@@ -39,7 +39,6 @@ class DiscoverFragment : Fragment() {
         with(discover_searchview) {
             setDismissOnTouchOutside(true)
             setOnSearchConfirmedListener { searchView, query ->
-                Toast.makeText(activity, query, Toast.LENGTH_SHORT).show()
                 search = if (query == "") {
                     " "
                 } else {

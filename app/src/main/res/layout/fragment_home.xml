@@ -69,30 +69,13 @@
                 <ImageView
                     android:id="@+id/home_iv_notfound"
                     android:layout_width="match_parent"
-                    android:layout_height="400dp"
+                    android:layout_height="330dp"
                     android:padding="20dp"
                     android:scaleType="centerInside"
                     android:src="@drawable/ic_undraw_empty"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/captura_black"
-                    android:text="You have not following\nanother user"
-                    android:textAlignment="center"
-                    android:textColor="#000"
-                    android:textSize="18sp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.831"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.096" />
 
                 <Button
                     android:id="@+id/home_btn_start_following"
@@ -104,11 +87,14 @@
                     android:padding="5dp"
                     android:text="Start Following"
                     android:textAllCaps="false"
-                    android:textColor="#000"
+                    android:textColor="@color/colorWhite"
                     android:textSize="15sp"
-                    app:layout_constraintEnd_toEndOf="@+id/textView"
-                    app:layout_constraintStart_toStartOf="@+id/textView"
-                    app:layout_constraintTop_toBottomOf="@+id/textView" />
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/home_iv_notfound"
+                    app:layout_constraintHorizontal_bias="0.762"
+                    app:layout_constraintStart_toStartOf="@+id/home_iv_notfound"
+                    app:layout_constraintTop_toTopOf="@+id/home_iv_notfound"
+                    app:layout_constraintVertical_bias="0.696" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.recyclerview.widget.RecyclerView
