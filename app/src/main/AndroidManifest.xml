@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.laam.laamarticle">
+    package="com.laam.laammedia">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -18,22 +18,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.activities.SplashActivity">
+        <activity android:name="ui.activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.RegisterActivity" />
-        <activity android:name=".ui.activities.MainActivity" />
-        <activity android:name=".ui.activities.NewMessageActivity" />
-        <activity android:name=".ui.activities.AddPostActivity" />
-        <activity android:name=".ui.activities.PostActivity" />
-        <activity android:name=".ui.activities.ProfileActivity" />
-        <activity android:name=".ui.activities.DirrectMessageActivity" />
-        <activity android:name=".ui.activities.HeaderMessageActivity" />
-        <activity android:name=".ui.activities.LoginActivity" />
+        <activity android:name="ui.activities.RegisterActivity" />
+        <activity android:name="ui.activities.MainActivity" />
+        <activity android:name="ui.activities.NewMessageActivity" />
+        <activity android:name="ui.activities.AddPostActivity" />
+        <activity android:name="ui.activities.PostActivity" />
+        <activity android:name="ui.activities.ProfileActivity" />
+        <activity android:name="ui.activities.DirrectMessageActivity" />
+        <activity android:name="ui.activities.HeaderMessageActivity" />
+        <activity android:name="ui.activities.LoginActivity" />
     </application>
 
 </manifest>
