@@ -6,8 +6,9 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ServiceBuilder {
 
-    const val BASE_URL = "http://10.0.2.2:3003"
-    private const val URL = "$BASE_URL/"
+    const val BASE_URL = "http://192.168.43.59:3003"
+//    const val BASE_URL = "http://10.0.2.2:3003"
+    const val URL = "$BASE_URL/"
 
     private val okHttp = OkHttpClient.Builder()
         .addInterceptor(BasicAuthInterceptor("laam", "laam123"))

@@ -24,7 +24,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class PostActivity : AppCompatActivity() {
-    private var mSocket: Socket = IO.socket("http://10.0.2.2:3003/")
+    private var mSocket: Socket = IO.socket(ServiceBuilder.URL)
     private lateinit var mAdapter: CommentRecyclerViewAdapter
 
     private var post_id: Int = 0

@@ -14,7 +14,7 @@ import com.laam.laammedia.R
 
 import com.laam.laammedia.models.HeaderMessage
 import com.laam.laammedia.services.api.ServiceBuilder
-import com.laam.laammedia.ui.activities.DirrectMessageActivity
+import com.laam.laammedia.ui.activities.DirectMessageActivity
 
 class HeaderMessageRecyclerViewAdapter(
     private val mValues: List<HeaderMessage>,
@@ -42,7 +42,7 @@ class HeaderMessageRecyclerViewAdapter(
             .into(holder.imgProfie)
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(mContext, DirrectMessageActivity::class.java)
+            val intent = Intent(mContext, DirectMessageActivity::class.java)
 
             intent.putExtra("destination_id", item.destinationId)
             intent.putExtra("destination_name", item.destinationName)

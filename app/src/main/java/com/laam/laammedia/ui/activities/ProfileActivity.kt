@@ -70,7 +70,7 @@ class ProfileActivity : AppCompatActivity() {
 
     private fun btnMessage() {
         profile_btn_message.setOnClickListener {
-            val intentN = Intent(this@ProfileActivity, DirrectMessageActivity::class.java)
+            val intentN = Intent(this@ProfileActivity, DirectMessageActivity::class.java)
             intentN.putExtra("destination_id", user_id)
             intentN.putExtra("destination_name", intent.getStringExtra("user_name"))
             startActivity(intentN)
