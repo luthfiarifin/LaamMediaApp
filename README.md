@@ -19,7 +19,7 @@ https://www.youtube.com/watch?v=Z6lDDKiDFhA
   * Clone this repository
   * Change the IP Address on ServiceBuilder.kt in services package (If you use default emulator in Android Studio you can not change it)
 
-## Screen Shoot : 
+## Screenshot : 
 ![Login Screen](https://github.com/luthfiarifin/LaamMedia_App/blob/laam_source/screenshot/(1)%20Login.png)
 ![Home Screen](https://github.com/luthfiarifin/LaamMedia_App/blob/laam_source/screenshot/(2)%20Home.png)
 ![Profile Screen](https://github.com/luthfiarifin/LaamMedia_App/blob/laam_source/screenshot/(4)%20Profile.png)
