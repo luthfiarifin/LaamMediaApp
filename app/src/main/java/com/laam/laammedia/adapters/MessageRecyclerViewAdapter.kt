@@ -25,10 +25,10 @@ class MessageRecyclerViewAdapter(
     override fun getItemViewType(position: Int): Int {
         val item = mValues[position]
 
-        if (!item.destinationID.equals(SharedPrefHelper(mContext).getAccount().id)) {
-            return VIEW_TYPE_MESSAGE_SENT
+        return if (item.userId == SharedPrefHelper(mContext).getAccount().id) {
+            VIEW_TYPE_MESSAGE_SENT
         } else {
-            return VIEW_TYPE_MESSAGE_RECEIVED
+            VIEW_TYPE_MESSAGE_RECEIVED
         }
     }
 
