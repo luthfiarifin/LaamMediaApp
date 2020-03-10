@@ -5,8 +5,8 @@ import com.google.gson.annotations.SerializedName
 
 data class DirrectMessage(
     val id: Int,
-    @SerializedName("destination_id")
-    val destinationID: Int,
+    @SerializedName("user_id")
+    val userId: Int,
     val content: String,
     @SerializedName("image_url")
     val imageUrl: String,
